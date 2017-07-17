@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>K DST Radio</title>
+	<link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+<center>
+	<img src='gta.jpg'>
+	<p id='nowPlaying'></p>
+	<button id='stopPlaylist'>Stop</button>
+	<button id='playPlaylist'>Play</button>
+	<br><br>
+	<input id="vol-control" type="range" min="0" max="100" step="1" oninput="SetVolume(this.value)" onchange="SetVolume(this.value)"></input>
+</center>
+<!-- from https://www.youtube.com/watch?v=IvEOKpkLzbs -->
+<audio id='playlist' preload='auto' src='03. Grand Theft Auto San Andreas - K-DST.mp3'></audio>
+</body>
+<script src='radio.js'></script>
+</html>

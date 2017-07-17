@@ -1,0 +1,19 @@
+img {
+	width: 900px;
+	height: 400px;
+}
+button {
+	width: 70px;
+	height: 30px;
+	border-radius: 3px;
+	background-color: white;
+    -webkit-transition: background-color 2s;
+	color: green;
+  	outline:none;
+  	font-family:  Helvetica;
+  	font-weight: lighter;
+  	font-size: 15px;
+  	border: 1px solid green;
+  	margin: 10px;
+  	box-shadow: 5px 5px 5px lightgrey;
+}	
