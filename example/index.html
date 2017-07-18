@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>K DST Radio</title>
+	<style>
+		button {
+			width: 70px;
+			height: 30px;
+			border-radius: 3px;
+			background-color: white;
+		    -webkit-transition: background-color 2s;
+			color: green;
+		  	outline:none;
+		  	font-family:  Helvetica;
+		  	font-weight: lighter;
+		  	font-size: 15px;
+		  	border: 1px solid green;
+		  	margin: 10px;
+		  	box-shadow: 5px 5px 5px lightgrey;
+		}	
+	</style>
+</head>
+<body>
+<center>
+	<button id='stopPlaylist'>Stop</button>
+	<button id='playPlaylist'>Play</button>
+	<br><br>
+	<input id="vol-control" type="range" min="0" max="100" step="1" oninput="SetVolume(this.value)" onchange="SetVolume(this.value)"></input>
+</center>
+<!-- change the src to your filename -->
+<audio id='playlist' preload='auto' src='http://georgevaltas.kissr.com/radio-k-dst/03. Grand Theft Auto San Andreas - K-DST.mp3'></audio>
+</body>
+<script>
+	//radio.js file
+	function findTimePoint() {
+		var startingDate = 1500309500918;
+		var now = new Date().getTime();
+		var value = (now - startingDate) / 1000;
+		// change the value of duration to the duration of your mp3 file ( needs to be in seconds )
+		var duration = 4098;
+		var playlistTime = Math.floor(value % duration);
+		localStorage.setItem('playlistTime', playlistTime);
+	}
+	findTimePoint();
+	var playlistTime = localStorage.getItem('playlistTime');
+
+	playlist.addEventListener('canplaythrough', function() {
+		if(playlist.currentTime < playlistTime) {
+			playlist.currentTime = playlistTime;
+		}
+		playlist.play();
+	});
+
+	//button functions
+	stopPlaylist.onclick = function() {
+		playlist.pause();
+		//css
+		stopPlaylist.style.backgroundColor = "green";
+		stopPlaylist.style.color = "white";
+		stopPlaylist.style.border = "none";
+		stopPlaylist.style.boxShadow = "0px 0px 0px";
+		//change 'play' button
+		playPlaylist.style.backgroundColor = "white";
+		playPlaylist.style.color = "green";
+		playPlaylist.style.border = "1px solid green";
+		playPlaylist.style.boxShadow = "5px 5px 5px lightgrey";
+	}
+	playPlaylist.onclick = function() {
+		playlist.play();
+		//css
+		playPlaylist.style.backgroundColor = "green";
+		playPlaylist.style.color = "white";
+		playPlaylist.style.border = "none";
+		playPlaylist.style.boxShadow = "0px 0px 0px";
+		//change 'stop' button
+		stopPlaylist.style.backgroundColor = "white";
+		stopPlaylist.style.color = "green";
+		stopPlaylist.style.border = "1px solid green";
+		stopPlaylist.style.boxShadow = "5px 5px 5px lightgrey";
+	}
+	window.SetVolume = function(val) {
+	    playlist.volume = val / 100;
+	}
+</script>
+</html>

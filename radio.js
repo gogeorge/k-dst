@@ -1,10 +1,15 @@
 function findTimePoint() {
-	var startingDate = 1500309500918; // 17 july 2017 , close to 20:00 
+	var startingDate = 1500309500918; // 17 july 2017 , around 20:00 
+	//The unix time of when the user visit the page
 	var now = new Date().getTime();
+	//value is the number of seconds the k-dst file COULD have been played
+	//from 17 july 2017 to the date the user visit the page
 	var value = (now - startingDate) / 1000; // from milliseconds to seconds
-	var duration = 4098; //01:08:18 in seconds
-	//var timesPlayed = Math.floor(value / duration);
-	playlistTime = Math.floor(value % 4098); //in seconds
+	//01:08:18 in seconds, duration of the k-dst file.
+	var duration = 4098;
+	//here we get the remainder in seconds after the 'value' has been divided
+	//by the duration of the k-dst file.
+	var playlistTime = Math.floor(value % duration); //in seconds
 	localStorage.setItem('playlistTime', playlistTime);
 }
 findTimePoint();
@@ -12,6 +17,8 @@ var playlistTime = localStorage.getItem('playlistTime');
 
 playlist.addEventListener('canplaythrough', function() {
 	if(playlist.currentTime < playlistTime) {
+		//make the k-dst file (mp3) play from the value of playlistTime
+		//which is in seconds
 		playlist.currentTime = playlistTime;
 	}
 	playlist.play();
@@ -46,6 +53,7 @@ playPlaylist.onclick = function() {
 }
 
 //thanks to Colin, https://stackoverflow.com/questions/31926221/video-volume-slider-in-html5-and-javascript
+//for the volume control
 window.SetVolume = function(val) {
     playlist.volume = val / 100;
 }
